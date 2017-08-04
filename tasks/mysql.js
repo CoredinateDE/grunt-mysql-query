@@ -84,8 +84,11 @@ module.exports = function (grunt) {
         });
     }
 
+   
     function query_inline(tpl_mysql, inline, silentMode) {
-         var cmd = tpl_mysql + " -e '" + inline + "'";
+        var separator = /^win/.test(process.platform) ? '"' : "'";
+        var cmd = tpl_mysql + " -e "+separator + inline + separator;
+
         if (silentMode == false)
             grunt.log.ok(cmd);
         shell.exec(cmd, {
